@@ -4,19 +4,14 @@ from fastmcp import FastMCP
 
 
 # Create a FastMCP server
-mcp = FastMCP(
-    name="Weather MCP Server",
-    version="1.0.0"
-)
+mcp = FastMCP(name="Weather MCP Server", version="1.0.0")
+
 
 @mcp.tool()
 def get_weather(location: str) -> dict:
     """Gets current weather for a location."""
-    return {
-        "temperature": 72.5,
-        "conditions": "Sunny",
-        "location": location
-    }
+    return {"temperature": 72.5, "conditions": "Sunny", "location": location}
+
 
 # Alternative approach using a class
 class WeatherTools:
@@ -26,10 +21,11 @@ class WeatherTools:
         return {
             "location": location,
             "forecast": [
-                {"day": i+1, "temperature": 70 + i, "conditions": "Partly Cloudy"}
+                {"day": i + 1, "temperature": 70 + i, "conditions": "Partly Cloudy"}
                 for i in range(days)
-            ]
+            ],
         }
+
 
 # Register class tools
 weather_tools = WeatherTools()

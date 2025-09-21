@@ -4,6 +4,7 @@
 
 VENV=.venv
 PYTHON=$(VENV)/bin/python
+MCP=$(VENV)/bin/mcp
 PIP=$(VENV)/bin/pip
 
 install:
@@ -12,7 +13,10 @@ install:
 	$(PIP) install -r requirements.txt
 
 run: install
-	$(PYTHON) simple_mcp_server.py
+	$(MCP) run server.py
+
+debug: install
+	npx --yes @modelcontextprotocol/inspector
 
 lint: install
 	$(PIP) install --upgrade flake8

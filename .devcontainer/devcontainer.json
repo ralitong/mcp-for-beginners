@@ -1,0 +1,40 @@
+{
+  "name": "mcp-for-beginners",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12",
+      "installTools": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "postCreateCommand": "make install",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "python.formatting.provider": "none",
+        "black-formatter.importStrategy": "useBundled"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter"
+      ]
+    }
+  },
+  "forwardPorts": [6277, 6274],
+  "portsAttributes": {
+    "6277": { "label": "MCP Inspector Proxy Server", "onAutoForward": "notify" },
+    "6274": { "label": "MCP Inspector UI", "onAutoForward": "notify" }
+  }
+}
