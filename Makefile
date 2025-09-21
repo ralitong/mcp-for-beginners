@@ -10,12 +10,15 @@ PIP=$(VENV)/bin/pip
 install:
 	python3 -m venv $(VENV)
 	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
+	$(PIP) install -q -r requirements.txt
 
 run: install
 	$(MCP) run server.py
 
-debug: install
+run_client: install
+	$(PYTHON) simple_client.py
+
+inspector: install
 	npx --yes @modelcontextprotocol/inspector
 
 lint: install

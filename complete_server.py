@@ -11,7 +11,34 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
+@mcp.tool()
+def subtract(a: int, b: int) -> int:
+    """Subtract two numbers"""
+    return a - b
 
+
+@mcp.tool()
+def divide(a: float, b: float) -> float:
+    """Divides two numbers"""
+    return a / b
+
+
+@mcp.tool()
+def multiply(a: int, b: int) -> int:
+    """Multiplies two numbers"""
+    return a * b
+
+
+@mcp.tool()
+def help():
+    return """
+Available tools to use are the following:
+- add
+- subtract
+- divide
+- multiply
+Args: a, b
+""".strip()
 
 
 # Add a dynamic
