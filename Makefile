@@ -1,5 +1,7 @@
 # Makefile for FastMCP Python project
 
+include .env
+
 .PHONY: install run lint test clean
 
 VENV=.venv
@@ -16,8 +18,8 @@ run: install
 	$(MCP) run server.py
 
 run_client: install
-	$(PYTHON) simple_client.py
-
+	$(PYTHON) client_connecting_with_llm.py
+	
 inspector: install
 	npx --yes @modelcontextprotocol/inspector
 
