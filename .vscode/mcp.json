@@ -1,0 +1,12 @@
+{
+    "inputs": [],
+    "servers": {
+        "hello-mcp": {
+            "command": "${workspaceFolder}/.venv/bin/mcp",
+            "args": [
+                "run",
+                "server.py"
+            ]
+        }
+    }
+}
