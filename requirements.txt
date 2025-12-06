@@ -4,3 +4,5 @@ azure-ai-inference
 azure-core
 fastapi
 uv
+openai
+python-dotenv

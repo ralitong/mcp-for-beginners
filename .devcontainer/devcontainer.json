@@ -24,6 +24,7 @@
           "editor.defaultFormatter": "ms-python.black-formatter"
         },
         "python.formatting.provider": "none",
+        "python.terminal.useEnvFile": true,
         "black-formatter.importStrategy": "useBundled"
       },
       "extensions": [
@@ -35,9 +36,18 @@
       ]
     }
   },
-  "forwardPorts": [6277, 6274],
+  "forwardPorts": [
+    6277,
+    6274
+  ],
   "portsAttributes": {
-    "6277": { "label": "MCP Inspector Proxy Server", "onAutoForward": "notify" },
-    "6274": { "label": "MCP Inspector UI", "onAutoForward": "notify" }
+    "6277": {
+      "label": "MCP Inspector Proxy Server",
+      "onAutoForward": "notify"
+    },
+    "6274": {
+      "label": "MCP Inspector UI",
+      "onAutoForward": "notify"
+    }
   }
 }
