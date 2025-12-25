@@ -10,6 +10,7 @@ This client demonstrates how to:
 
 import asyncio
 import json
+
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 

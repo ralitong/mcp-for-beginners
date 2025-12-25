@@ -4,5 +4,8 @@ azure-ai-inference
 azure-core
 fastapi
 uv
+uvicorn
 openai
 python-dotenv
+flake8
+isort

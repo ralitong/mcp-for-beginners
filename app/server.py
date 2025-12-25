@@ -1,23 +1,27 @@
 """
-Low-level MCP stdio server.
+Low-level MCP server with basic auth using streamable-http transport.
+Tools are defined in app/tools/math.py
 """
 
 from __future__ import annotations
-import asyncio
+
 import logging
 
+import uvicorn
 from mcp import types
 from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+from starlette.applications import Starlette
+from starlette.routing import Mount
 
+from app.auth import BasicAuthMiddleware
 from app.tools import TOOLS
 from app.tools.handler import handle_call_tool
 from app.tools.math import MathArgs
-import app.tools.math  # ensures tool modules register themselves
+import app.tools.math  # noqa: F401 - ensures tools register themselves
 
 logger = logging.getLogger(__name__)
 server = Server("ral-math-mcp")
-
 
 MATH_SCHEMA = MathArgs.model_json_schema()
 
@@ -43,16 +47,19 @@ async def call_tool(name: str, arguments: dict[str, str] | None):
     return await handle_call_tool(name, arguments or {})
 
 
-async def main():
-    logging.basicConfig(level=logging.INFO)
-    async with stdio_server() as (read_stream, write_stream):
-        await server.run(
-            read_stream, write_stream, server.create_initialization_options()
-        )
+# Create session manager for streamable-http transport
+session_manager = StreamableHTTPSessionManager(app=server)
 
+# Create Starlette app with the session manager's handle_request as ASGI app
+app = Starlette(
+    routes=[
+        Mount("/mcp", app=session_manager.handle_request),
+    ],
+    lifespan=lambda app: session_manager.run(),
+)
+
+app.add_middleware(BasicAuthMiddleware)
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        logger.info("Received interrupt, shutting down gracefully.")
+    logging.basicConfig(level=logging.INFO)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

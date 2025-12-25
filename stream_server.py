@@ -1,11 +1,12 @@
 # server.py
-from fastapi import FastAPI
-from fastapi.responses import StreamingResponse, HTMLResponse
-from mcp.server.fastmcp import FastMCP, Context
-from mcp.types import TextContent
 import asyncio
-import uvicorn
 import os
+
+import uvicorn
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse, StreamingResponse
+from mcp.server.fastmcp import Context, FastMCP
+from mcp.types import TextContent
 
 mcp = FastMCP("Streamable DEMO")
 app = FastAPI()

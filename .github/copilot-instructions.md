@@ -74,3 +74,7 @@ See `app/tools/` for registry pattern:
 
 ## asyncio_learning/
 Educational examples of Python async/event loops—ignore when building MCP servers.
+
+
+## Code Style
+- Follow Uncle Bob's Clean Code principles. The code should express intent without needing comments.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import asyncio
-from fastmcp import FastMCP
 
+from fastmcp import FastMCP
 
 # Create a FastMCP server
 mcp = FastMCP(name="Weather MCP Server", version="1.0.0")

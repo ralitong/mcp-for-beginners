@@ -1,5 +1,6 @@
 import asyncio
 
+
 class Rock:
     def __await__(self):
         value_sent_in = yield 7

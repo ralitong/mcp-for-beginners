@@ -1,6 +1,8 @@
 
-from . import tool, ToolArgs
 from pydantic import BaseModel
+
+from . import ToolArgs, tool
+
 
 class MathArgs(BaseModel):
     a: float

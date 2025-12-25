@@ -1,10 +1,11 @@
-from mcp import ClientSession, StdioServerParameters, types
-from mcp.client.stdio import stdio_client
+import json
 import os
+
 from azure.ai.inference import ChatCompletionsClient
 from azure.core.credentials import AzureKeyCredential
 from azure.core.rest import HttpRequest
-import json
+from mcp import ClientSession, StdioServerParameters, types
+from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
 server_params = StdioServerParameters(

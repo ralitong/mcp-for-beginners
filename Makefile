@@ -2,7 +2,7 @@
 
 include .env
 
-.PHONY: install run lint test clean
+.PHONY: install run lint format-imports test clean
 
 VENV=.venv
 PYTHON=$(VENV)/bin/python
@@ -24,8 +24,10 @@ inspector: install
 	npx --yes @modelcontextprotocol/inspector
 
 lint: install
-	$(PIP) install --upgrade flake8
 	$(VENV)/bin/flake8 simple_mcp_server.py
+
+format-imports: install
+	$(VENV)/bin/isort . --profile black
 
 test: install
 	@echo "No tests defined yet. Add test targets as needed."

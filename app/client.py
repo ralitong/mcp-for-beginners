@@ -3,19 +3,23 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 import json
 import os
 
-
+from pathlib import Path
 from dotenv import load_dotenv
+from mcp import ClientSession, types
+from mcp.client.streamable_http import streamablehttp_client
 from openai import AsyncOpenAI
-from mcp import ClientSession, StdioServerParameters, types
-from mcp.client.stdio import stdio_client
 
 load_dotenv()
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-SERVER_PARAMS = StdioServerParameters(command="python", args=["-m", "app.server"])
+
+# Load userrs from users.json
+USERS_FILE = Path(__file__).parent / "users.json"
+USERS = json.loads(USERS_FILE.read_text())
 
 
 def convert_tools(tools: list[types.Tool]) -> list[dict]:
@@ -34,9 +38,25 @@ def convert_tools(tools: list[types.Tool]) -> list[dict]:
     return openai_tools
 
 
+def make_auth_header(username: str, password: str) -> dict:
+    credentials = f"{username}:{password}"
+    encoded = base64.b64encode(credentials.encode()).decode()
+    return {"Authorization": f"Basic {encoded}"}
+
+
 async def run_conversation() -> None:
     """One user -> LLM -> tool -> LLM round trip."""
-    async with stdio_client(SERVER_PARAMS) as (read, write):
+    username = "admin"
+    password = USERS[username]
+    headers = make_auth_header(username, password)
+
+    async with streamablehttp_client(
+        url="http://localhost:8000/mcp", headers=headers
+    ) as (
+        read,
+        write,
+        _,
+    ):
         user_message = input("Ask something that needs the math tools: ")
         async with ClientSession(read, write) as session:
             await session.initialize()

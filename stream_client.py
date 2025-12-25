@@ -1,11 +1,12 @@
 # client.py
-from mcp.client.streamable_http import streamablehttp_client
-from mcp import ClientSession
 import asyncio
-import mcp.types as types
-from mcp.shared.session import RequestResponder
-import requests
 import logging
+
+import mcp.types as types
+import requests
+from mcp import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+from mcp.shared.session import RequestResponder
 
 # Configure logging
 logging.basicConfig(
