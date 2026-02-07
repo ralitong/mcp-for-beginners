@@ -6,5 +6,8 @@ Learning repository for Model Context Protocol (MCP) servers using Python. Conta
 ## Code Style
 - Follow Uncle Bob's Clean Code principles. The code should express intent without needing comments.
 
+## Implementation
+- If possible, test locally and iterate until it works.
+
 ## Makefile Usage
 - Use `make install` to set up the development environment.
